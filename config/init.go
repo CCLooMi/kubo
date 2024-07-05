@@ -132,7 +132,7 @@ func DefaultDatastoreConfig() Datastore {
 		StorageGCWatermark: 90, // 90%
 		GCPeriod:           "1h",
 		BloomFilterSize:    0,
-		Spec:               flatfsSpec(),
+		Spec:               pebbleSpec(),
 	}
 }
 
@@ -145,6 +145,21 @@ func badgerSpec() map[string]interface{} {
 			"path":       "badgerds",
 			"syncWrites": false,
 			"truncate":   true,
+		},
+	}
+}
+func pebbleSpec() map[string]interface{} {
+	return map[string]interface{}{
+		"type":   "measure",
+		"prefix": "pebble.datastore",
+		"child": map[string]interface{}{
+			"type":         "pebbleds",
+			"path":         "pebbleds",
+			"cacheSize":    8 * 1024 * 1024,
+			"bytesPerSync": 512 * 1024,
+			"memTableSize": 64 * 1024 * 1024,
+			"maxOpenFiles": 1000,
+			"compression":  "zstd",
 		},
 	}
 }

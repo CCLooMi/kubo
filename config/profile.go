@@ -144,6 +144,33 @@ This profile may only be applied when first initializing the node.
 			return nil
 		},
 	},
+	"pebbleds": {
+		Description: `Configures the node to use the experimental pebble datastore.
+
+Pebble is a high performant backend from Cochroachdb, used by default in Cluster:
+
+* Proven to work well on very large pinsets.
+* Best disk-usage compared to the rest. No need to trigger GC cycles for space reclaim.
+* Performance and memory usage seems on par with Badger3,
+  and behaves better than Badger on both counts.
+* Behaves correctly with default settings but we bump them up a bit.
+* 0-delay startup times, even with very large amounts of data.
+* Options support compression (we chose to leave it enabled by default).
+* The Pebble project is officially alive and maintained.
+* Pebble only runs on 64-bit architectures.
+* One key difference with Badger3 is that Pebble stores keys and values together
+  and any lookup for a key will also read the values,
+  while Badger3 can store keys and values
+  separately (i.e. keys only in the index, which can be loaded onto memory when small enough).
+
+This profile may only be applied when first initializing the node.`,
+
+		InitOnly: true,
+		Transform: func(c *Config) error {
+			c.Datastore.Spec = pebbleSpec()
+			return nil
+		},
+	},
 	"badgerds": {
 		Description: `Configures the node to use the experimental badger datastore.
 
