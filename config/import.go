@@ -3,7 +3,7 @@ package config
 const (
 	DefaultCidVersion      = 0
 	DefaultUnixFSRawLeaves = false
-	DefaultUnixFSChunker   = "size-262144"
+	DefaultUnixFSChunker   = "size-524288"
 	DefaultHashFunction    = "sha2-256"
 )
 

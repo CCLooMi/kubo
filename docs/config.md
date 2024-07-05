@@ -2424,7 +2424,7 @@ Type: `flag`
 
 The default UnixFS chunker. Commands affected: `ipfs add`.
 
-Default: `size-262144`
+Default: `size-524288`
 
 Type: `optionalString`
 

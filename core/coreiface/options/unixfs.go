@@ -58,7 +58,7 @@ func UnixfsAddOptions(opts ...UnixfsAddOption) (*UnixfsAddSettings, cid.Prefix, 
 		RawLeaves:    false,
 		RawLeavesSet: false,
 
-		Chunker: "size-262144",
+		Chunker: "size-524288",
 		Layout:  BalancedLayout,
 
 		Pin:      false,
@@ -195,7 +195,7 @@ func (unixfsOpts) InlineLimit(limit int) UnixfsAddOption {
 
 // Chunker specifies settings for the chunking algorithm to use.
 //
-// Default: size-262144, formats:
+// Default: size-524288, formats:
 // size-[bytes] - Simple chunker splitting data into blocks of n bytes
 // rabin-[min]-[avg]-[max] - Rabin chunker
 func (unixfsOpts) Chunker(chunker string) UnixfsAddOption {

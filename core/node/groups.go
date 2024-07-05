@@ -338,7 +338,7 @@ func IPFS(ctx context.Context, bcfg *BuildCfg) fx.Option {
 	}
 
 	// Auto-sharding settings
-	shardSizeString := cfg.Internal.UnixFSShardingSizeThreshold.WithDefault("256kiB")
+	shardSizeString := cfg.Internal.UnixFSShardingSizeThreshold.WithDefault("512kiB")
 	shardSizeInt, err := humanize.ParseBytes(shardSizeString)
 	if err != nil {
 		return fx.Error(err)

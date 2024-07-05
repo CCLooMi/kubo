@@ -102,7 +102,7 @@ The chunker option, '-s', specifies the chunking strategy that dictates
 how to break files into blocks. Blocks with same content can
 be deduplicated. Different chunking strategies will produce different
 hashes for the same file. The default is a fixed block size of
-256 * 1024 bytes, 'size-262144'. Alternatively, you can use the
+512 * 1024 bytes, 'size-524288'. Alternatively, you can use the
 Buzhash or Rabin fingerprint chunker for content defined chunking by
 specifying buzhash or rabin-[min]-[avg]-[max] (where min/avg/max refer
 to the desired chunk sizes in bytes), e.g. 'rabin-262144-524288-1048576'.

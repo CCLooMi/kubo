@@ -237,7 +237,7 @@ fetching may be degraded.
 		Transform: func(c *Config) error {
 			c.Import.CidVersion = *NewOptionalInteger(0)
 			c.Import.UnixFSRawLeaves = False
-			c.Import.UnixFSChunker = *NewOptionalString("size-262144")
+			c.Import.UnixFSChunker = *NewOptionalString("size-524288")
 			c.Import.HashFunction = *NewOptionalString("sha2-256")
 			return nil
 		},
