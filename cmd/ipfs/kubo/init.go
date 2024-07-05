@@ -2,6 +2,8 @@ package kubo
 
 import (
 	"context"
+	"crypto/rand"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -167,6 +169,11 @@ func doInit(out io.Writer, repoRoot string, empty bool, confProfiles string, con
 		return err
 	}
 
+	// Generate swarm.key
+	if err := generateSwarmKey(repoRoot); err != nil {
+		return err
+	}
+
 	if !empty {
 		if err := addDefaultAssets(out, repoRoot); err != nil {
 			return err
@@ -202,6 +209,21 @@ func checkWritable(dir string) error {
 	}
 
 	return err
+}
+
+func generateSwarmKey(repoRoot string) error {
+	swarmKeyPath := filepath.Join(repoRoot, "swarm.key")
+	key := make([]byte, 32)
+	_, err := rand.Read(key)
+	if err != nil {
+		log.Fatalln("While trying to read random source:", err)
+	}
+	data := fmt.Sprintf("/key/swarm/psk/1.0.0/\n/base16/\n%s", hex.EncodeToString(key))
+	err = os.WriteFile(swarmKeyPath, []byte(data), 0o600)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func addDefaultAssets(out io.Writer, repoRoot string) error {
